@@ -1,9 +1,10 @@
 
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -16,16 +17,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 221 83% 53%;
+    --primary: 238 84% 67%; /* Indigo */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 160 84% 39%;
+    --secondary: 160 84% 39%; /* Emerald */
     --secondary-foreground: 210 40% 98%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
+    --accent: 35 92% 52%; /* Amber */
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -33,9 +34,9 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221 83% 53%;
+    --ring: 238 84% 67%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {
@@ -48,16 +49,16 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 237 83% 64%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 160 84% 39%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 35 92% 52%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -72,10 +73,28 @@
 @layer base {
   * {
     @apply border-border;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   body {
     @apply bg-resume-background text-resume-text;
+  }
+}
+
+@layer components {
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-accent bg-clip-text text-transparent;
+  }
+  
+  .glass-effect {
+    @apply bg-white/70 backdrop-blur-sm border border-white/20;
+  }
+  
+  .animated-border {
+    @apply relative after:absolute after:inset-0 after:rounded-lg after:border-2 after:border-transparent hover:after:border-resume-primary after:transition-all after:duration-300;
   }
 }

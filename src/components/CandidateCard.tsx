@@ -30,16 +30,23 @@ const CandidateCard: React.FC<CandidateCardProps> = ({
     .substring(0, 2)
     .toUpperCase();
 
+  const getScoreColor = (score: number) => {
+    if (score >= 90) return 'bg-green-500';
+    if (score >= 80) return 'bg-resume-secondary';
+    if (score >= 70) return 'bg-resume-accent';
+    return 'bg-gray-500';
+  };
+
   return (
     <Card 
-      className={`hover:shadow-md transition-all cursor-pointer ${
-        isSelected ? 'border-resume-primary ring-1 ring-resume-primary' : ''
+      className={`card-hover cursor-pointer ${
+        isSelected ? 'border-resume-primary ring-2 ring-resume-primary/20' : 'border-resume-light'
       }`}
       onClick={onClick}
     >
       <CardContent className="p-4">
         <div className="flex items-center gap-4">
-          <Avatar className="h-12 w-12 bg-resume-primary/10">
+          <Avatar className={`h-14 w-14 border-2 ${isSelected ? 'border-resume-primary bg-resume-light' : 'border-transparent bg-resume-light/50'}`}>
             <AvatarFallback className="text-resume-primary font-medium">
               {initials}
             </AvatarFallback>
@@ -50,37 +57,37 @@ const CandidateCard: React.FC<CandidateCardProps> = ({
               <div>
                 <h3 className="font-semibold text-base">{personalInfo.name}</h3>
                 {experience && (
-                  <div className="flex items-center text-sm text-gray-500 mt-0.5 gap-1">
-                    <Briefcase size={13} />
+                  <div className="flex items-center text-xs text-gray-500 mt-0.5 gap-1">
+                    <Briefcase size={12} />
                     <span>{experience}</span>
                   </div>
                 )}
               </div>
-              <Badge className="bg-resume-secondary hover:bg-resume-secondary/90">
+              <Badge className={`${getScoreColor(matchScore)} text-white hover:opacity-90`}>
                 {matchScore}% match
               </Badge>
             </div>
           </div>
         </div>
         
-        <div className="mt-3 grid gap-1.5">
+        <div className="mt-3 grid gap-1.5 text-sm px-1">
           {personalInfo.email && (
-            <div className="flex items-center gap-2 text-sm">
-              <Mail size={14} className="text-gray-500" />
+            <div className="flex items-center gap-2 text-gray-600">
+              <Mail size={14} className="text-resume-primary/70" />
               <span className="truncate">{personalInfo.email}</span>
             </div>
           )}
           
           {personalInfo.phone && (
-            <div className="flex items-center gap-2 text-sm">
-              <Phone size={14} className="text-gray-500" />
+            <div className="flex items-center gap-2 text-gray-600">
+              <Phone size={14} className="text-resume-primary/70" />
               <span>{personalInfo.phone}</span>
             </div>
           )}
           
           {personalInfo.location && (
-            <div className="flex items-center gap-2 text-sm">
-              <MapPin size={14} className="text-gray-500" />
+            <div className="flex items-center gap-2 text-gray-600">
+              <MapPin size={14} className="text-resume-primary/70" />
               <span>{personalInfo.location}</span>
             </div>
           )}
@@ -90,7 +97,7 @@ const CandidateCard: React.FC<CandidateCardProps> = ({
           {topSkills.map((skill, index) => (
             <span
               key={index}
-              className="text-xs px-2 py-0.5 bg-resume-primary/10 text-resume-primary rounded-full"
+              className="text-xs px-2 py-1 bg-resume-light text-resume-primary rounded-full"
             >
               {skill}
             </span>

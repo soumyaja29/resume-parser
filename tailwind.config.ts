@@ -64,11 +64,13 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				resume: {
-					primary: '#1E3A8A',
-					secondary: '#0D9488',
-					accent: '#F59E0B',
-					background: '#F9FAFB',
-					text: '#1F2937'
+					primary: '#6366F1', // Indigo
+					secondary: '#10B981', // Emerald
+					accent: '#F59E0B', // Amber
+					background: '#F8FAFC', // Slate 50
+					text: '#1F2937',
+					dark: '#4338CA', // Indigo 700
+					light: '#E0E7FF' // Indigo 100
 				}
 			},
 			borderRadius: {
@@ -100,13 +102,27 @@ export default {
 				'slide-up': {
 					'0%': { transform: 'translateY(10px)', opacity: '0' },
 					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'pulse-soft': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.8' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out',
-				'slide-up': 'slide-up 0.5s ease-out'
+				'slide-up': 'slide-up 0.5s ease-out',
+				'pulse-soft': 'pulse-soft 2s ease-in-out infinite'
+			},
+			boxShadow: {
+				'card-hover': '0 10px 15px -3px rgba(99, 102, 241, 0.1), 0 4px 6px -2px rgba(99, 102, 241, 0.05)',
+				'glow': '0 0 15px rgba(99, 102, 241, 0.5)'
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-accent': 'linear-gradient(135deg, #6366F1 0%, #10B981 100%)',
+				'gradient-card': 'linear-gradient(to right, rgba(99, 102, 241, 0.05), rgba(16, 185, 129, 0.05))'
 			}
 		}
 	},

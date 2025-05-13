@@ -57,9 +57,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect, isProcessing 
   };
 
   return (
-    <Card className={`p-6 border-2 border-dashed transition-all duration-200 ${
-      isDragging ? 'border-resume-secondary bg-resume-secondary/5' : 'border-gray-300'
-    } rounded-lg`}>
+    <Card className={`p-6 border-2 border-dashed transition-all duration-300 ${
+      isDragging ? 'border-resume-primary bg-resume-light/40 shadow-glow' : 'border-resume-light'
+    } rounded-xl`}>
       <div 
         className="flex flex-col items-center justify-center py-10"
         onDragOver={handleDragOver}
@@ -76,12 +76,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect, isProcessing 
 
         <div className="mb-6">
           {selectedFile ? (
-            <div className="h-16 w-16 bg-resume-primary/10 rounded-full flex items-center justify-center">
-              <FilePlus2 size={32} className="text-resume-primary" />
+            <div className="h-20 w-20 bg-resume-light rounded-full flex items-center justify-center animate-pulse-soft">
+              <FilePlus2 size={36} className="text-resume-primary" />
             </div>
           ) : (
-            <div className="h-16 w-16 bg-resume-primary/10 rounded-full flex items-center justify-center">
-              <FileUp size={32} className="text-resume-primary" />
+            <div className="h-20 w-20 bg-resume-light rounded-full flex items-center justify-center group-hover:animate-bounce">
+              <FileUp size={36} className="text-resume-primary" />
             </div>
           )}
         </div>
@@ -92,14 +92,15 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect, isProcessing 
             <p className="font-medium text-resume-primary mb-4">{selectedFile.name}</p>
             {isProcessing ? (
               <div className="flex items-center gap-2 text-resume-primary">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Processing...</span>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Processing resume...</span>
               </div>
             ) : (
               <Button 
                 variant="outline" 
                 size="sm"
                 onClick={triggerFileInput}
+                className="border-resume-light text-resume-primary hover:bg-resume-light/50 hover:text-resume-primary"
               >
                 Change file
               </Button>
@@ -107,7 +108,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect, isProcessing 
           </div>
         ) : (
           <>
-            <p className="mb-2 text-lg font-semibold text-gray-700">
+            <p className="mb-2 text-xl font-semibold text-resume-primary">
               Drag and drop your resume
             </p>
             <p className="mb-4 text-sm text-gray-500">
@@ -115,9 +116,10 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect, isProcessing 
             </p>
             <Button 
               onClick={triggerFileInput}
-              className="bg-resume-primary hover:bg-resume-primary/90"
+              className="bg-resume-primary hover:bg-resume-dark transition-colors"
               disabled={isProcessing}
             >
+              <FileUp size={18} className="mr-2" />
               Select file
             </Button>
           </>

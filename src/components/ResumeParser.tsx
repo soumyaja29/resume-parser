@@ -52,9 +52,12 @@ const ResumeParser: React.FC = () => {
 
   return (
     <div className="container px-4 py-8 mx-auto max-w-7xl">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold text-resume-primary mb-2">Resume Parser</h1>
-        <p className="text-gray-600">Extract and organize information from resumes using AI</p>
+      <header className="mb-8 text-center">
+        <div className="inline-block mb-2 px-4 py-1 bg-resume-light rounded-full text-resume-primary text-sm font-medium">
+          AI-Powered Resume Parser
+        </div>
+        <h1 className="text-4xl font-bold gradient-text mb-2">Resume Analyzer</h1>
+        <p className="text-gray-600 max-w-lg mx-auto">Extract and organize candidate information with precision using advanced AI algorithms</p>
       </header>
 
       <Tabs 
@@ -63,22 +66,22 @@ const ResumeParser: React.FC = () => {
         onValueChange={setSelectedTab}
         className="space-y-6"
       >
-        <div className="flex justify-between items-center mb-6">
-          <TabsList className="grid grid-cols-3 w-auto">
-            <TabsTrigger value="upload" className="flex items-center gap-2">
+        <div className="flex justify-center items-center mb-6">
+          <TabsList className="grid grid-cols-3 w-auto p-1 bg-resume-light rounded-lg">
+            <TabsTrigger value="upload" className="flex items-center gap-2 data-[state=active]:bg-resume-primary data-[state=active]:text-white rounded-md">
               <ArrowUp size={16} />
               <span>Upload</span>
             </TabsTrigger>
-            <TabsTrigger value="candidates" className="flex items-center gap-2">
+            <TabsTrigger value="candidates" className="flex items-center gap-2 data-[state=active]:bg-resume-primary data-[state=active]:text-white rounded-md">
               <UserPlus size={16} />
               <span>Candidates</span>
               {savedResumes.length > 0 && (
-                <span className="ml-1 text-xs bg-resume-primary text-white rounded-full px-1.5">
+                <span className="ml-1 text-xs bg-white text-resume-primary rounded-full h-5 min-w-5 inline-flex items-center justify-center px-1.5">
                   {savedResumes.length}
                 </span>
               )}
             </TabsTrigger>
-            <TabsTrigger value="export" className="flex items-center gap-2">
+            <TabsTrigger value="export" className="flex items-center gap-2 data-[state=active]:bg-resume-primary data-[state=active]:text-white rounded-md">
               <Download size={16} />
               <span>Export</span>
             </TabsTrigger>
@@ -96,7 +99,7 @@ const ResumeParser: React.FC = () => {
               {resumeData && (
                 <div className="mt-6 animate-slide-up">
                   <Button 
-                    className="w-full bg-resume-secondary hover:bg-resume-secondary/90"
+                    className="w-full bg-resume-primary hover:bg-resume-dark transition-colors"
                     onClick={handleSaveResume}
                   >
                     <UserPlus size={16} className="mr-2" />
@@ -112,25 +115,28 @@ const ResumeParser: React.FC = () => {
 
         <TabsContent value="candidates" className="animate-fade-in">
           {savedResumes.length === 0 ? (
-            <div className="text-center p-10 border rounded-lg">
+            <div className="text-center p-12 border rounded-xl bg-gradient-card">
+              <div className="bg-resume-light h-16 w-16 flex items-center justify-center rounded-full mx-auto mb-4">
+                <UserPlus size={24} className="text-resume-primary" />
+              </div>
               <h3 className="text-xl font-semibold mb-2">No candidates yet</h3>
-              <p className="text-gray-500 mb-4">Upload and save resumes to see them here</p>
-              <Button onClick={() => setSelectedTab('upload')}>
+              <p className="text-gray-500 mb-4 max-w-md mx-auto">Upload and save resumes to build your candidate database</p>
+              <Button onClick={() => setSelectedTab('upload')} className="bg-resume-primary hover:bg-resume-dark">
                 Upload Resume
               </Button>
             </div>
           ) : (
             <div className="grid lg:grid-cols-3 gap-6">
               <div className="lg:col-span-1 space-y-4">
-                <div className="relative mb-6">
+                <div className="relative mb-6 bg-white rounded-lg shadow-sm">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                   <Input
                     placeholder="Search candidates..."
-                    className="pl-9"
+                    className="pl-9 border-resume-light focus-visible:ring-resume-primary"
                   />
                 </div>
                 
-                <div className="space-y-3">
+                <div className="space-y-3 max-h-[calc(100vh-280px)] overflow-y-auto pr-2 scrollbar-none">
                   {savedResumes.map((resume, index) => (
                     <CandidateCard 
                       key={index}
@@ -149,9 +155,14 @@ const ResumeParser: React.FC = () => {
                 {selectedCandidate !== null ? (
                   <ResumeAnalyzer resumeData={savedResumes[selectedCandidate]} />
                 ) : (
-                  <Card className="flex items-center justify-center h-64">
-                    <CardContent>
-                      <p className="text-gray-500">Select a candidate to view details</p>
+                  <Card className="flex items-center justify-center h-64 bg-gradient-card border-resume-light">
+                    <CardContent className="text-center">
+                      <div className="mb-4 opacity-60">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto">
+                          <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <p className="text-gray-500">Select a candidate to view their details</p>
                     </CardContent>
                   </Card>
                 )}
@@ -161,33 +172,42 @@ const ResumeParser: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="export" className="animate-fade-in">
-          <div className="bg-white p-6 rounded-lg border">
-            <h2 className="text-xl font-semibold mb-4">Export Options</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Button variant="outline" className="flex justify-start gap-2">
+          <div className="bg-white p-8 rounded-xl border border-resume-light shadow-sm">
+            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
+              <span className="bg-resume-light p-1.5 rounded-md">
+                <Download size={18} className="text-resume-primary" />
+              </span>
+              Export Options
+            </h2>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+              <Button variant="outline" className="flex justify-start gap-2 card-hover text-resume-primary border-resume-light bg-white">
                 <ArrowDownToLine size={18} />
                 Export as CSV
               </Button>
-              <Button variant="outline" className="flex justify-start gap-2">
+              <Button variant="outline" className="flex justify-start gap-2 card-hover text-resume-primary border-resume-light bg-white">
                 <ArrowDownToLine size={18} />
                 Export as PDF
               </Button>
-              <Button variant="outline" className="flex justify-start gap-2">
+              <Button variant="outline" className="flex justify-start gap-2 card-hover text-resume-primary border-resume-light bg-white">
                 <ArrowDownToLine size={18} />
                 Export as JSON
               </Button>
             </div>
             
-            <div className="mt-6 bg-gray-50 rounded-lg p-4">
-              <h3 className="font-medium mb-2">Export Summary</h3>
+            <div className="mt-6 bg-gradient-card rounded-lg p-6">
+              <h3 className="font-medium mb-2 flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-resume-accent"></span>
+                Export Summary
+              </h3>
               <p className="text-sm text-gray-600 mb-4">
                 {savedResumes.length > 0
-                  ? `Ready to export ${savedResumes.length} candidate records.`
+                  ? `Ready to export ${savedResumes.length} candidate records with full profile details.`
                   : "No candidates available for export. Upload and save resumes first."}
               </p>
               
               <Button 
-                className="bg-resume-primary hover:bg-resume-primary/90"
+                className="bg-resume-primary hover:bg-resume-dark transition-colors"
                 disabled={savedResumes.length === 0}
               >
                 <Download size={16} className="mr-2" />
